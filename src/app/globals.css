@@ -1,0 +1,430 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+/* =========================================================================
+   SİSTEM DEĞİŞKENLERİ VE TEMA (DARK/LIGHT MODE)
+   ========================================================================= */
+:root {
+    /* Genel Değişkenler */
+    --font-primary: 'Outfit', system-ui, -apple-system, sans-serif;
+    --border-radius: 12px;
+    --transition-speed: 0.3s;
+    --container-width: 800px; /* Okunabilirlik için ideal genişlik (PaperMod stili) */
+
+    /* Sabit Renkler */
+    --accent-color: #3b82f6;
+    --accent-hover: #2563eb;
+    --gray-400: #9ca3af;
+}
+
+/* Light Mode Renkleri */
+[data-theme="light"] {
+    --bg-color: #f9fafb;
+    --bg-card: #ffffff;
+    --text-primary: #1f2937;
+    --text-secondary: #4b5563;
+    --border-color: #e5e7eb;
+    --nav-bg: rgba(255, 255, 255, 0.85);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05);
+    --shadow-hover: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.05);
+}
+
+/* Dark Mode Renkleri (Varsayılan) */
+[data-theme="dark"] {
+    --bg-color: #111827;
+    --bg-card: #1f2937;
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    --border-color: #374151;
+    --nav-bg: rgba(17, 24, 39, 0.85);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -2px rgba(0,0,0,0.3);
+    --shadow-hover: 0 10px 15px -3px rgba(0,0,0,0.5), 0 4px 6px -4px rgba(0,0,0,0.4);
+}
+
+/* =========================================================================
+   SIFIRLAMA (RESET) VE TEMEL AYARLAR
+   ========================================================================= */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color var(--transition-speed) ease;
+}
+
+a:hover {
+    color: var(--accent-color);
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* =========================================================================
+   HEADER & NAVIGATION
+   ========================================================================= */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--nav-bg);
+    backdrop-filter: blur(10px); /* Glassmorphism efekti */
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--text-primary);
+}
+
+/* Tema Değiştirme Butonu */
+.theme-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color var(--transition-speed);
+}
+
+.theme-toggle:hover {
+    background-color: var(--border-color);
+}
+
+.theme-toggle svg {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.theme-toggle:hover svg {
+    transform: rotate(30deg);
+}
+
+/* =========================================================================
+   ANA İÇERİK (HERO BÖLÜMÜ)
+   ========================================================================= */
+.main-content {
+    flex: 1;
+    padding: 60px 20px;
+}
+
+.hero {
+    margin-bottom: 60px;
+    animation: fadeInDown 0.8s ease forwards;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+    max-width: 600px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-link {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all var(--transition-speed) ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.social-link:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+/* =========================================================================
+   BLOG YAZILARI KART YAPISI
+   ========================================================================= */
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.posts-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.post-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    transition: all var(--transition-speed) ease;
+    box-shadow: var(--shadow-sm);
+    animation: fadeInUp 0.8s ease forwards;
+    opacity: 0; /* Animasyon için başlangıç durumu */
+}
+
+/* Kartların sırayla gelmesi için delay animasyonu */
+.post-card:nth-child(1) { animation-delay: 0.1s; }
+.post-card:nth-child(2) { animation-delay: 0.2s; }
+.post-card:nth-child(3) { animation-delay: 0.3s; }
+
+.post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent-color);
+}
+
+.post-date {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.post-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.post-title a {
+    color: var(--text-primary);
+}
+
+.post-title a::after {
+    content: '';
+    position: absolute;
+    inset: 0; /* Linki tüm karta yayar */
+}
+
+.post-card {
+    position: relative; /* Linkin yayılması için referans noktası */
+}
+
+.post-description {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.post-tags {
+    display: flex;
+    gap: 10px;
+}
+
+.tag {
+    font-size: 0.75rem;
+    background-color: var(--border-color);
+    color: var(--text-primary);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    position: relative;
+    z-index: 2; /* Kartın tamamını kapsayan linkten etkilenmemesi için */
+}
+
+.view-all {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.btn.primary {
+    display: inline-block;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    font-weight: 600;
+    transition: all var(--transition-speed) ease;
+}
+
+.btn.primary:hover {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* =========================================================================
+   FOOTER (ALT BİLGİ)
+   ========================================================================= */
+.footer {
+    border-top: 1px solid var(--border-color);
+    padding: 30px 0;
+    margin-top: auto;
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.footer-credit a {
+    color: var(--text-secondary);
+    text-decoration: underline;
+    text-decoration-color: var(--border-color);
+}
+
+.footer-credit a:hover {
+    color: var(--accent-color);
+    text-decoration-color: var(--accent-color);
+}
+
+/* =========================================================================
+   ANİMASYONLAR
+   ========================================================================= */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================================
+   RESPONSIVE TASARIM (MOBİL UYUM)
+   ========================================================================= */
+@media (max-width: 600px) {
+    .header-inner {
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        height: auto;
+        padding: 15px 0;
+    }
+
+    .nav-links {
+        gap: 15px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}

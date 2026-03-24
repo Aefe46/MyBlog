@@ -1,0 +1,51 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Post {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  tags        String
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+}
+
+model Idea {
+  id        Int      @id @default(autoincrement())
+  content   String
+  imageUrl  String?
+  createdAt DateTime @default(now())
+}
+
+model ListGroup {
+  id    Int        @id @default(autoincrement())
+  icon  String
+  title String
+  items ListItem[]
+}
+
+model ListItem {
+  id        Int       @id @default(autoincrement())
+  text      String
+  groupId   Int
+  listGroup ListGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+}
+
+model Setting {
+  key   String @id
+  value String
+}
+
+model NavLink {
+  id    Int    @id @default(autoincrement())
+  title String
+  url   String
+  order Int    @default(0)
+}
